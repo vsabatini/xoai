@@ -6,18 +6,13 @@ import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.stream.XMLStreamException;
 
-public class FormatConfiguration implements XMLWritable, Referable {
-    private String prefix;
+public class FormatConfiguration extends FormatConfigurationSuper implements XMLWritable, Referable {
     private String xslt;
-    private String namespace;
-    private String schemaLocation;
-    private BundleReference filter;
-    private String id;
 
     public FormatConfiguration(String id) {
-        this.id = id;
+    	super(id);
     }
-
+    
     @Override
     public void write(XmlOutputContext writer) throws WritingXmlException {
         validate();
@@ -61,32 +56,8 @@ public class FormatConfiguration implements XMLWritable, Referable {
             throw new WritingXmlException("FormatConfiguration XSLT schemaLocation is mandatory");
     }
 
-    public String getPrefix() {
-        return prefix;
-    }
-
     public String getXslt() {
         return xslt;
-    }
-
-    public BundleReference getFilter() {
-        return filter;
-    }
-
-    public boolean hasFilter() {
-        return filter != null;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getSchemaLocation() {
-        return schemaLocation;
-    }
-
-    public String getNamespace() {
-        return namespace;
     }
 
     public FormatConfiguration withPrefix(String prefix) {

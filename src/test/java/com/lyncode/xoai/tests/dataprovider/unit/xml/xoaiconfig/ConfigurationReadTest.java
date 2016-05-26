@@ -5,6 +5,7 @@ import com.lyncode.xoai.dataprovider.xml.read.XmlReader;
 import com.lyncode.xoai.dataprovider.xml.read.XmlReaderException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfigurationSuper;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.TransformerConfiguration;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.conditions.AndConditionConfiguration;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.conditions.FilterConditionConfiguration;
@@ -91,7 +92,7 @@ public class ConfigurationReadTest {
     public void readFormatConfiguration() throws Exception {
         FormatConfigurationParser underTest = new FormatConfigurationParser();
 
-        FormatConfiguration result = underTest.parse(aReader("<Format id=\"" + ID + "\">" +
+        FormatConfiguration result = (FormatConfiguration)underTest.parse(aReader("<Format id=\"" + ID + "\">" +
                 "<Prefix>" + PREFIX + "</Prefix>" +
                 "<XSLT>" + XSLT + "</XSLT>" +
                 "<Namespace>" + NAMESPACE + "</Namespace>" +
@@ -111,7 +112,7 @@ public class ConfigurationReadTest {
     public void readFormatConfigurationWithoutFilter() throws Exception {
         FormatConfigurationParser underTest = new FormatConfigurationParser();
 
-        FormatConfiguration result = underTest.parse(aReader("<Format id=\"" + ID + "\">" +
+        FormatConfiguration result = (FormatConfiguration)underTest.parse(aReader("<Format id=\"" + ID + "\">" +
                 "<Prefix>" + PREFIX + "</Prefix>" +
                 "<XSLT>" + XSLT + "</XSLT>" +
                 "<Namespace>" + NAMESPACE + "</Namespace>" +

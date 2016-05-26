@@ -63,7 +63,7 @@ public class ItemRepositoryHelper {
         if (context.hasCondition())
             filters.add(new ScopedFilter(context.getCondition(), Context));
 
-        MetadataFormat metadataFormat = context.getFormatByPrefix(metadataPrefix);
+        MetadataFormatSuper metadataFormat = context.getFormatByPrefix(metadataPrefix);
         if (metadataFormat.hasCondition())
             filters.add(new ScopedFilter(metadataFormat.getCondition(), MetadataFormat));
         return filters;

@@ -17,6 +17,7 @@
 package com.lyncode.xoai.dataprovider.core;
 
 import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormatSuper;
 import com.lyncode.xoai.dataprovider.data.internal.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
@@ -57,7 +58,7 @@ public class ContextManager {
                 sets.add(sm.getSet(b.getReference()));
             }
 
-            List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
+            List<MetadataFormatSuper> formats = new ArrayList<MetadataFormatSuper>();
             for (BundleReference b : contextConfiguration.getFormats()) {
                 if (!mfm.formatExists(b.getReference()))
                     throw new ConfigurationException(

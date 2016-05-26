@@ -2,16 +2,23 @@ package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.*;
 import com.lyncode.xoai.dataprovider.data.About;
+import com.lyncode.xoai.dataprovider.data.ICustomFormatter;
 import com.lyncode.xoai.dataprovider.data.Item;
+import com.lyncode.xoai.dataprovider.data.internal.CustomMetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.ItemHelper;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepositoryHelper;
 import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormatSuper;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepositoryHelper;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.services.api.RepositoryConfiguration;
 import com.lyncode.xoai.dataprovider.services.api.ResumptionTokenFormatter;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
+import com.lyncode.xoai.dataprovider.xml.xoai.Element;
+import com.lyncode.xoai.dataprovider.xml.xoai.Element.Field;
+import com.lyncode.xoai.util.XSLPipeline;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -131,7 +138,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
             throws BadArgumentException, CannotDisseminateRecordException,
             OAIException, NoMetadataFormatsException, CannotDisseminateFormatException {
         log.debug("Metadata format: " + parameters.getMetadataPrefix());
-        MetadataFormat format = context.getFormatByPrefix(parameters
+        MetadataFormatSuper format = context.getFormatByPrefix(parameters
                 .getMetadataPrefix());
         RecordType record = new RecordType();
         HeaderType header = new HeaderType();
@@ -149,15 +156,46 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
 
         if (!item.isDeleted()) {
             MetadataType metadata = null;
+            
             try {
-                if (context.getTransformer().hasTransformer()) {
+            	if(format instanceof CustomMetadataFormat) {
+            		//TODO: applicare il trasformer del contesto? 
+            		
+            		String cerifText="";
+            		try {
+            			ICustomFormatter formatCustom = ((CustomMetadataFormat)format).getCustomClass().newInstance();
+            			cerifText = formatCustom.getCustomXml(item);
+					
+					} catch (InstantiationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+            		
+//            		
+//            		for(Element e:item.getMetadata().getMetadata().getElement()) 
+//            			if (e.getName().equalsIgnoreCase("cerif")) {
+//            				for(Field f:e.getField()) {
+//            					if(f.getName().contentEquals("openaire")) {
+//            						cerifText = f.getValue();
+//            					}
+//            					break;
+//            				}
+//            				break;
+//            			}
+            		
+                    metadata = new MetadataType(cerifText);
+            	}
+            	else if (context.getTransformer().hasTransformer()) {
                     metadata = new MetadataType(itemHelperWrap.toPipeline(true)
                             .apply(context.getTransformer().getXslTransformer().getValue())
-                            .apply(format.getTransformer())
+                            .apply(((MetadataFormat)format).getTransformer())
                             .getTransformed());
                 } else {
                     metadata = new MetadataType(itemHelperWrap.toPipeline(true)
-                            .apply(format.getTransformer())
+                            .apply(((MetadataFormat)format).getTransformer())
                             .getTransformed());
                 }
             } catch (WritingXmlException e) {

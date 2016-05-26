@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.core;
 
 import com.lyncode.xoai.dataprovider.data.Item;
 import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
-import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormatSuper;
 import com.lyncode.xoai.dataprovider.data.internal.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
@@ -43,16 +43,16 @@ public class XOAIContext {
     private Condition condition;
     private Map<String, StaticSet> sets;
     private MetadataTransformer transformer;
-    private Map<String, MetadataFormat> formats;
+    private Map<String, MetadataFormatSuper> formats;
 
     public XOAIContext(String baseUrl, String name, String description, MetadataTransformer transformer,
-                       List<MetadataFormat> formats, List<StaticSet> sets) {
+                       List<MetadataFormatSuper> formats, List<StaticSet> sets) {
         this.baseUrl = baseUrl;
         this.name = name;
         this.description = description;
         this.transformer = transformer;
-        this.formats = new HashMap<String, MetadataFormat>();
-        for (MetadataFormat mdf : formats)
+        this.formats = new HashMap<String, MetadataFormatSuper>();
+        for (MetadataFormatSuper mdf : formats)
             this.formats.put(mdf.getPrefix(), mdf);
         this.sets = new HashMap<String, StaticSet>();
         for (StaticSet s : sets)
@@ -83,22 +83,22 @@ public class XOAIContext {
         return sets.get(setID).getCondition();
     }
 
-    public MetadataFormat getFormatByPrefix(String prefix)
+    public MetadataFormatSuper getFormatByPrefix(String prefix)
             throws CannotDisseminateFormatException {
-        for (MetadataFormat format : this.formats.values())
+        for (MetadataFormatSuper format : this.formats.values())
             if (format.getPrefix().equals(prefix))
                 return format;
         throw new CannotDisseminateFormatException(prefix);
     }
 
-    public List<MetadataFormat> getFormats() {
-        return new ArrayList<MetadataFormat>(formats.values());
+    public List<MetadataFormatSuper> getFormats() {
+        return new ArrayList<MetadataFormatSuper>(formats.values());
     }
 
-    public List<MetadataFormat> getFormats(Item item) {
-        List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
+    public List<MetadataFormatSuper> getFormats(Item item) {
+        List<MetadataFormatSuper> formats = new ArrayList<MetadataFormatSuper>();
         if (this.isItemShown(item)) {
-            for (MetadataFormat format : this.formats.values())
+            for (MetadataFormatSuper format : this.formats.values())
                 if (item.isDeleted() || format.isApplicable(item))
                     formats.add(format);
         }

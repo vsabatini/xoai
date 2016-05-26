@@ -4,7 +4,7 @@ import com.lyncode.xoai.dataprovider.core.*;
 import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.internal.ItemIdentifyHelper;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepositoryHelper;
-import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormatSuper;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepositoryHelper;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
@@ -126,7 +126,7 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
                                     ItemIdentifier itemIdentifier) throws BadArgumentException,
             CannotDisseminateRecordException, OAIException,
             NoMetadataFormatsException, CannotDisseminateFormatException {
-        MetadataFormat format = context.getFormatByPrefix(parameters
+        MetadataFormatSuper format = context.getFormatByPrefix(parameters
                 .getMetadataPrefix());
         if (!itemIdentifier.isDeleted() && !format.isApplicable(itemIdentifier))
             throw new CannotDisseminateRecordException();

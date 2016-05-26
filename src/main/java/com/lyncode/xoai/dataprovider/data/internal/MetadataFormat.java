@@ -16,22 +16,14 @@
 
 package com.lyncode.xoai.dataprovider.data.internal;
 
-import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
-import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
-
 import javax.xml.transform.Transformer;
 
 /**
 
  * @version 3.1.0
  */
-public class MetadataFormat {
-    private String prefix;
+public class MetadataFormat extends MetadataFormatSuper {
     private Transformer xsltTransformer;
-    private String namespace;
-    private String schemaLocation;
-    private Condition filter;
-
     public MetadataFormat(String prefix, Transformer transformer, String namespace, String schemaLocation) {
         this.prefix = prefix;
         this.xsltTransformer = transformer;
@@ -39,37 +31,7 @@ public class MetadataFormat {
         this.schemaLocation = schemaLocation;
     }
 
-    public String getPrefix() {
-        return prefix;
-    }
-
     public Transformer getTransformer() {
         return xsltTransformer;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public String getSchemaLocation() {
-        return schemaLocation;
-    }
-
-    public boolean isApplicable(ItemIdentifier item) {
-        if (item.isDeleted()) return true;
-        if (hasCondition()) return getCondition().getFilter().isItemShown(item);
-        return true;
-    }
-
-    public Condition getCondition() {
-        return filter;
-    }
-
-    public boolean hasCondition() {
-        return filter != null;
-    }
-
-    public void setFilter(Condition filter) {
-        this.filter = filter;
     }
 }

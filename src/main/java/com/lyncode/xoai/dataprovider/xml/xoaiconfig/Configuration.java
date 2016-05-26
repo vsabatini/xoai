@@ -29,7 +29,7 @@ public class Configuration implements XMLWritable {
     }
 
     private List<ContextConfiguration> contextConfigurations = new ArrayList<ContextConfiguration>();
-    private List<FormatConfiguration> formatConfigurations = new ArrayList<FormatConfiguration>();
+    private List<FormatConfigurationSuper> formatConfigurations = new ArrayList<FormatConfigurationSuper>();
     private List<TransformerConfiguration> transformerConfigurations = new ArrayList<TransformerConfiguration>();
     private List<FilterConfiguration> filters = new ArrayList<FilterConfiguration>();
     private List<ConditionConfiguration> conditions = new ArrayList<ConditionConfiguration>();
@@ -111,7 +111,7 @@ public class Configuration implements XMLWritable {
         return this;
     }
 
-    public List<FormatConfiguration> getFormats() {
+    public List<FormatConfigurationSuper> getFormats() {
         return formatConfigurations;
     }
 
@@ -120,7 +120,7 @@ public class Configuration implements XMLWritable {
         return this;
     }
 
-    public Configuration withFormatConfigurations(FormatConfiguration... formatConfigurations) {
+    public Configuration withFormatConfigurations(FormatConfigurationSuper... formatConfigurations) {
         this.formatConfigurations.addAll(asList(formatConfigurations));
         return this;
     }
@@ -204,7 +204,7 @@ public class Configuration implements XMLWritable {
             writer.getWriter().writeEndElement();
 
             writer.getWriter().writeStartElement("Formats");
-            for (FormatConfiguration formatConfiguration : formatConfigurations) {
+            for (FormatConfigurationSuper formatConfiguration : formatConfigurations) {
                 formatConfiguration.write(writer);
             }
             writer.getWriter().writeEndElement();
