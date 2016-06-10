@@ -159,7 +159,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
             
             try {
             	if(format instanceof CustomMetadataFormat) {
-            		//TODO: applicare il trasformer del contesto? 
+            		//VSTODO: applicare il trasformer del contesto? 
             		
             		String cerifText="";
             		try {
@@ -167,10 +167,10 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
             			cerifText = formatCustom.getCustomXml(item);
 					
 					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
+						// VSTODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
+						// VSTODO Auto-generated catch block
 						e1.printStackTrace();
 					}
             		

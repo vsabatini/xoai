@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 public class ItemMetadata {
     private static Logger log = LogManager.getLogger(ItemMetadata.class);
@@ -24,10 +26,16 @@ public class ItemMetadata {
     public Metadata getMetadata() {
         if (metadata == null) {
             try {
-                metadata = XOAIParser.parse(new ByteArrayInputStream(compiled.getBytes()));
+                metadata = XOAIParser.parse(new ByteArrayInputStream(compiled.getBytes())); //VSTODO!: controllare questione utf8
             } catch (XMLStreamException e) {
                 metadata = null;
-            }
+            } 
+//            se si mette parametro utf8
+//            catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				metadata = null;
+//			}
         }
         return metadata;
     }

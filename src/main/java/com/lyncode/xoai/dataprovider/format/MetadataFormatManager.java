@@ -72,13 +72,13 @@ public class MetadataFormatManager {
 	            contexts.put(format.getId(), metadataFormat);
         	}
         	else {
-        		//TODO: implementare CustomFormat
+        		//VSTODO: implementare CustomFormat
         		//STUB implementation
         		try {
 					CustomMetadataFormat metadataFormat = new CustomMetadataFormat(format.getPrefix(), (Class<? extends ICustomFormatter>) Class.forName(((CustomFormatConfiguration)format).getClazz()), null, format.getNamespace(), format.getSchemaLocation());
 					contexts.put(format.getId(), metadataFormat);
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
+					// VSTODO Auto-generated catch block
 					e.printStackTrace();
 				}
         		

@@ -38,7 +38,7 @@ public class FormatConfigurationParser extends Parser<FormatConfigurationSuper> 
                         .withSchemaLocation(reader.getNextElementText("SchemaLocation"));;
                 reader.proceedToNextElement();
                 
-                //TODOVS mergiare questa parte con il caso di prima
+                //VSTODO mergiare questa parte con il caso di prima
                 if (reader.isStart() && reader.getName().equals("Filter")) {
                 	formatConfiguration.withFilter(reader.getAttribute("ref"));
                     reader.proceedToNextElement();

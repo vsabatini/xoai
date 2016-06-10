@@ -60,7 +60,7 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
             MetadataType metadata = null;
             try {
             	if(format instanceof CustomMetadataFormat) {
-            		//TODO: applicare il trasformer del contesto? 
+            		//VSTODO: applicare il trasformer del contesto? 
             		
             		String cerifText="";
             		try {
@@ -68,10 +68,10 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
             			cerifText = formatCustom.getCustomXml(itemHelper.getItem());
 					
 					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
+						// VSTODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
+						// VSTODO Auto-generated catch block
 						e1.printStackTrace();
 					}
             		

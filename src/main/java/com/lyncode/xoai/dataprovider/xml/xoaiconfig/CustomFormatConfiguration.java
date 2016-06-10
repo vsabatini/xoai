@@ -38,7 +38,7 @@ public class CustomFormatConfiguration extends FormatConfigurationSuper {
     
     public  void write(XmlOutputContext writer) throws WritingXmlException{
     	validate();
-    	//TODO: implementare
+    	//VSTODO: implementare
     };
 
     private void validate() throws WritingXmlException {

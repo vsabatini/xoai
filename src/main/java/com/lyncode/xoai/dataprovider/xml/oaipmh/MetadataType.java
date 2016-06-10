@@ -74,6 +74,7 @@ public class MetadataType implements XMLWritable {
         if (this.value != null)
             this.value.write(context);
         else {
+//        	if(string.isEmpty()) return;  //VSTODO:  utf8 controllare perché certi item generano metadati vuoti
             EchoElement elem = new EchoElement(string);
             elem.write(context);
         }

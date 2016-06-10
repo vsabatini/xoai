@@ -19,6 +19,11 @@ public class XOAIParser {
         XOAIParser parser = new XOAIParser(st);
         return parser.parse();
     }
+    
+    public static Metadata parse(InputStream st,String encoding) throws XMLStreamException {
+        XOAIParser parser = new XOAIParser(st,encoding);
+        return parser.parse();
+    }    
 
     private static final String METADATA = "metadata";
     private static final String FIELD = "field";
@@ -34,6 +39,12 @@ public class XOAIParser {
         this.metadata = null;
         this.stack = new Stack<Element>();
     }
+    
+    public XOAIParser(InputStream stream,String encoding) throws XMLStreamException {
+        this.reader = factory.createXMLEventReader(stream,encoding);
+        this.metadata = null;
+        this.stack = new Stack<Element>();
+    }    
 
     public Metadata parse() throws XMLStreamException {
         if (metadata != null) return metadata;

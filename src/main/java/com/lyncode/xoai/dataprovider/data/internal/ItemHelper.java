@@ -11,6 +11,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 public class ItemHelper extends ItemIdentifyHelper {
     private static XMLOutputFactory outputFactory = XMLOutputFactory2.newFactory();
@@ -25,12 +26,12 @@ public class ItemHelper extends ItemIdentifyHelper {
         return item;
     }
 
-    public InputStream toStream() throws XMLStreamException, WritingXmlException {
+    public InputStream toStream() throws XMLStreamException, WritingXmlException, UnsupportedEncodingException {
         if (item.getMetadata().isCompiled()) {
-            return new ByteArrayInputStream(item.getMetadata().getCompiled().getBytes());
+            return new ByteArrayInputStream(item.getMetadata().getCompiled().getBytes("UTF8")); //VSTODO: utf8 qui è giusto?? 
         } else {
             ByteArrayOutputStream mdOUT = new ByteArrayOutputStream();
-            XmlOutputContext context = XmlOutputContext.emptyContext(mdOUT);
+            XmlOutputContext context = XmlOutputContext.emptyContext(mdOUT,"UTF8"); //VSTODO: utf8 qui è giusto?? 
             item.getMetadata().getMetadata().write(context);
             context.getWriter().flush();
             context.getWriter().close();
@@ -38,7 +39,7 @@ public class ItemHelper extends ItemIdentifyHelper {
         }
     }
 
-    public XSLPipeline toPipeline(boolean omitXMLDeclaration) throws WritingXmlException, XMLStreamException {
+    public XSLPipeline toPipeline(boolean omitXMLDeclaration) throws WritingXmlException, XMLStreamException, UnsupportedEncodingException {
         return new XSLPipeline(toStream(), omitXMLDeclaration);
     }
 }

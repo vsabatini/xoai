@@ -21,8 +21,16 @@ public class XmlOutputContext {
         return emptyContext(out, Second);
     }
 
+    public static XmlOutputContext emptyContext(OutputStream out, String encoding) throws XMLStreamException {
+        return emptyContext(out, Second, encoding);
+    }
+    
     public static XmlOutputContext emptyContext(OutputStream out, Granularity granularity) throws XMLStreamException {
         return new XmlOutputContext(new BaseDateProvider(), factory.createXMLStreamWriter(out), granularity);
+    }
+    
+    public static XmlOutputContext emptyContext(OutputStream out, Granularity granularity, String encoding) throws XMLStreamException {
+        return new XmlOutputContext(new BaseDateProvider(), factory.createXMLStreamWriter(out, encoding), granularity);
     }
 
     private DateProvider formatter;
