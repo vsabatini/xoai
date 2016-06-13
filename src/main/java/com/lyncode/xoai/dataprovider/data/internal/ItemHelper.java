@@ -28,10 +28,10 @@ public class ItemHelper extends ItemIdentifyHelper {
 
     public InputStream toStream() throws XMLStreamException, WritingXmlException, UnsupportedEncodingException {
         if (item.getMetadata().isCompiled()) {
-            return new ByteArrayInputStream(item.getMetadata().getCompiled().getBytes("UTF8")); //VSTODO: utf8 qui è giusto?? 
+            return new ByteArrayInputStream(item.getMetadata().getCompiled().getBytes()); //VSTODO: "UTF8"utf8 qui è giusto?? 
         } else {
             ByteArrayOutputStream mdOUT = new ByteArrayOutputStream();
-            XmlOutputContext context = XmlOutputContext.emptyContext(mdOUT,"UTF8"); //VSTODO: utf8 qui è giusto?? 
+            XmlOutputContext context = XmlOutputContext.emptyContext(mdOUT); //VSTODO: ,"UTF8" utf8 qui è giusto?? 
             item.getMetadata().getMetadata().write(context);
             context.getWriter().flush();
             context.getWriter().close();
