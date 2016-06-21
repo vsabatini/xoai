@@ -6,10 +6,17 @@
     <version>3.2.10</version>
 
     <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
+        <artifactId>dspace-parent</artifactId>
+        <groupId>org.dspace</groupId>
+        <version>CRIS-5.5.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
+
+<!--     <parent> -->
+<!--         <groupId>org.sonatype.oss</groupId> -->
+<!--         <artifactId>oss-parent</artifactId> -->
+<!--         <version>9</version> -->
+<!--     </parent> -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
